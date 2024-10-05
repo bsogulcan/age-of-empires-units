@@ -1,0 +1,22 @@
+<div class="overflow-x-auto text-slate-900 dark:text-white">
+    <table class="min-w-full table-fixed bg-white border border-gray-300 dark:bg-slate-800 dark:border-slate-200">
+        <thead>
+        <tr class="bg-gray-200 dark:bg-slate-900 uppercase text-sm leading-normal">
+            @for (column of columns; track column.name) {
+                <th class="py-3 px-6 text-left">{{ column.displayName }}</th>
+            }
+        </tr>
+        </thead>
+        <tbody class="text-sm font-light">
+            @for (entity of entities; track entity) {
+                <tr class="border-b border-gray-300 hover:bg-slate-900 cursor-pointer"
+                    (click)="onRowSelected.emit(entity)"
+                >
+                    @for (column of columns; track column.name) {
+                        <td class="py-3 px-6 text-left">{{ entity[column.name] }}</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

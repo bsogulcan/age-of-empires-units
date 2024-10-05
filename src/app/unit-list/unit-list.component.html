@@ -1,0 +1,18 @@
+<app-wrapper>
+    <div class="mx-50 bg-white dark:bg-slate-800 rounded-lg px-6 py-8 ring-1 ring-slate-900/5 shadow-xl">
+
+
+        @if (units) {
+            <app-table
+                    [columns]="columns"
+                    [entities]="units"
+                    [pagination]="true"
+                    (onRowSelected)="navigateUnitDescription($event)">
+            </app-table>
+        }
+
+    </div>
+
+
+</app-wrapper>
+    

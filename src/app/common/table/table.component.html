@@ -8,7 +8,7 @@
         </tr>
         </thead>
         <tbody class="text-sm font-light">
-            @for (entity of entities; track entity) {
+            @for (entity of rows; track entity) {
                 <tr class="border-b border-gray-300 hover:bg-slate-900 cursor-pointer"
                     (click)="onRowSelected.emit(entity)"
                 >
@@ -19,4 +19,26 @@
             }
         </tbody>
     </table>
+    <div class="flex flex-row-reverse mt-2 gap-4">
+        <div>
+            <select id="options" name="options"
+                    [(ngModel)]="displayCount"
+                    (change)="onDisplayCountChanged()"
+                    class="block w-full p-2 bg-white dark:bg-slate-800 border border-gray-300 shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                <option [value]="10">10</option>
+                <option [value]="25">25</option>
+                <option [value]="50">50</option>
+            </select>
+        </div>
+        <div class="content-center">
+            <button (click)="filterPage(selectedPageIndex-1)">Previous</button>
+            @for (page of pages; track page; let i = $index) {
+                <button [ngClass]="{'mx-2': true,'font-bold':i==selectedPageIndex}"
+                        (click)="filterPage(i)">{{ page + 1 }}
+                </button>
+            }
+            <button (click)="filterPage(selectedPageIndex+1)">Next</button>
+        </div>
+    </div>
 </div>
+

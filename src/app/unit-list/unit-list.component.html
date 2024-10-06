@@ -6,7 +6,7 @@
                     <app-button-group
                             class="inline-flex rounded-md shadow-sm mb-2"
                             [options]="ages"
-                            [selectedOption]="ages[0]"
+                            [selectedOptionIndex]="selectedAgeIndex"
                             (onSelectedChanged)="onAgeChanged($event)"
                     >
                     </app-button-group>

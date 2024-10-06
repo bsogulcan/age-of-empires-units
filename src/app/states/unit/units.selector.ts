@@ -37,7 +37,7 @@ export const selectFilteredUnits = createSelector(
         });
 
 
-        return units.map(x => UnitService.convertToUnitDto(x));
+        return units;
     }
 );
 

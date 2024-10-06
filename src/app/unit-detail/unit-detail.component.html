@@ -1,6 +1,51 @@
-<app-wrapper>
+<app-wrapper class="text-white">
     @if (selectedUnit) {
-        
+
+        <div class="mx-50 bg-white dark:bg-slate-800 rounded-lg px-6 py-8 ring-1 ring-slate-900/5 shadow-xl">
+            <div class="w-full flex items-center gap-2">
+
+                <a [routerLink]="'/unit-list'">
+                 <span class="inline-flex items-center justify-center p-2 bg-indigo-500 rounded-md shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                             stroke="currentColor"
+                             class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <h1 class="text-2xl grow">
+                    {{ selectedUnit.name }}
+                </h1>
+
+                <div class="flex-row">
+                    @if (previousUnitId) {
+                        <span (click)="navigatePreviousUnit()"
+                              class="inline-flex items-center justify-center p-2 bg-indigo-500 rounded-md shadow-lg mr-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                 stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M21 16.811c0 .864-.933 1.406-1.683.977l-7.108-4.061a1.125 1.125 0 0 1 0-1.954l7.108-4.061A1.125 1.125 0 0 1 21 8.689v8.122ZM11.25 16.811c0 .864-.933 1.406-1.683.977l-7.108-4.061a1.125 1.125 0 0 1 0-1.954l7.108-4.061a1.125 1.125 0 0 1 1.683.977v8.122Z"/>
+                            </svg>
+                        </span>
+                    }
+
+                    @if (nextUnitId) {
+                        <span (click)="navigateNextUnit()"
+                              class="inline-flex items-center justify-center p-2 bg-indigo-500 rounded-md shadow-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                 stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M3 8.689c0-.864.933-1.406 1.683-.977l7.108 4.061a1.125 1.125 0 0 1 0 1.954l-7.108 4.061A1.125 1.125 0 0 1 3 16.811V8.69ZM12.75 8.689c0-.864.933-1.406 1.683-.977l7.108 4.061a1.125 1.125 0 0 1 0 1.954l-7.108 4.061a1.125 1.125 0 0 1-1.683-.977V8.69Z"/>
+                            </svg>
+                        </span>
+                    }
+                </div>
+            </div>
+
+            <div class="mt-2">{{ selectedUnit.description }}</div>
+        </div>
     }
 </app-wrapper>
     

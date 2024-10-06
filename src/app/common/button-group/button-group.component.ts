@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ButtonGroupOption} from "./models/button-group-option";
 import {NgClass} from "@angular/common";
 
@@ -11,7 +11,7 @@ import {NgClass} from "@angular/common";
     templateUrl: './button-group.component.html',
     styleUrl: './button-group.component.scss'
 })
-export class ButtonGroupComponent {
+export class ButtonGroupComponent implements OnInit {
 
     @Input()
     class?: string
@@ -22,13 +22,17 @@ export class ButtonGroupComponent {
     options!: Array<ButtonGroupOption<any>>;
 
     @Input()
-    selectedOption?: ButtonGroupOption<any>
+    selectedOptionIndex?: number;
 
     @Output()
     onSelectedChanged = new EventEmitter<ButtonGroupOption<any>>;
 
+    ngOnInit() {
+        console.log(this.selectedOptionIndex);
+    }
+
     onButtonClicked(option: ButtonGroupOption<any>) {
-        this.selectedOption = option;
-        this.onSelectedChanged.emit(this.selectedOption);
+        this.selectedOptionIndex = this.options.indexOf(option);
+        this.onSelectedChanged.emit(option);
     }
 }

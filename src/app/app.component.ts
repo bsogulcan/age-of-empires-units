@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {RouterLink, RouterOutlet} from '@angular/router';
 import {NgClass, NgIf, NgOptimizedImage} from "@angular/common";
-import {HeaderComponent} from "./layouts/header/header.component";
+import {HeaderComponent} from "./common/header/header.component";
 
 @Component({
     selector: 'app-root',

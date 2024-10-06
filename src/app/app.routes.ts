@@ -20,7 +20,7 @@ export const routes: Routes = [
         component: UnitListComponent,
     },
     {
-        path: 'unit-details',
+        path: 'unit/:id',
         component: UnitDetailComponent
     }
 ];

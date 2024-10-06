@@ -81,16 +81,15 @@ export class UnitListComponent implements OnInit, OnDestroy {
         },
     ];
 
+    units: Array<Unit> = [];
     filteredUnits: Array<UnitDto> = [];
-    selectedAge: ButtonGroupOption<number> = {
-        value: 0,
-        displayName: 'All'
-    };
+    selectedAgeIndex: number = 0;
     costFilters: Array<CostFilter> = []
 
     ngOnInit(): void {
-        this.unitService.getList()
+        this.service$ = this.unitService.getList()
             .subscribe(response => {
+                    this.units = response.units;
                     this.store.dispatch(UnitsActions.getList({response: response.units}));
                     this.store.dispatch(
                         UnitsActions.filterUnits({units: response.units})
@@ -100,12 +99,12 @@ export class UnitListComponent implements OnInit, OnDestroy {
             );
 
         this.filteredUnits$ = this.store.select(selectFilteredUnits).subscribe(filteredUnits => {
-            this.filteredUnits = filteredUnits;
+            this.filteredUnits = filteredUnits.map(x => UnitService.convertToUnitDto(x));
             this.changeDetector.markForCheck()
         });
 
         this.ageFilter$ = this.store.select(selectAgeFilter).subscribe(age => {
-            this.selectedAge = age;
+            this.selectedAgeIndex = this.ages.findIndex(x => x.value == age.value);
             this.changeDetector.markForCheck()
         });
 
@@ -123,9 +122,14 @@ export class UnitListComponent implements OnInit, OnDestroy {
         this.costFilters$.unsubscribe();
     }
 
-    navigateUnitDescription(unit: Unit) {
+    navigateUnitDescription(unitDto: UnitDto) {
+        const unit = this.units.find(x => x.id == unitDto.id);
+        if (!unit) {
+            return;
+        }
+
         this.store.dispatch(UnitsActions.selectUnit({unit: unit}));
-        this.router.navigate(['/unit-details']);
+        this.router.navigate(['/unit/', unit.id]);
     }
 
     onAgeChanged(event: ButtonGroupOption<any>) {

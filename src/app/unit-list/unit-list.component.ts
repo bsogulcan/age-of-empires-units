@@ -3,12 +3,13 @@ import {WrapperComponent} from "../common/wrapper/wrapper.component";
 import {TableComponent} from "../common/table/table.component";
 import {TableColumn} from "../common/table/models/table-column";
 import {UnitService} from "../services/unit/unit.service";
-import {Unit, UnitDto} from "../services/unit/dtos/unit";
+import {Unit} from "../services/unit/dtos/unit";
 import {Router} from "@angular/router";
 import {ButtonGroupOption} from "../common/button-group/models/button-group-option";
 import {ButtonGroupComponent} from "../common/button-group/button-group.component";
 import {RangeInputComponent} from "../common/range-input/range-input.component";
-import {CostFilter} from "./models/cost-filter";
+import {CostFilter} from "../services/unit/dtos/cost-filter";
+import {UnitDto} from "../services/unit/dtos/unit-dto";
 
 @Component({
     selector: 'app-unit-list',

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormsModule} from "@angular/forms";
-import {CostFilter} from "../../unit-list/models/cost-filter";
+import {CostFilter} from "../../services/unit/dtos/cost-filter";
 
 @Component({
     selector: 'app-range-input',

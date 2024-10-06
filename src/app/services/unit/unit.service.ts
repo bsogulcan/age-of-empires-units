@@ -2,8 +2,9 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {UnitResponse} from "./dtos/unit-response";
-import {Unit, UnitDto} from "./dtos/unit";
+import {Unit} from "./dtos/unit";
 import {Cost} from "./dtos/cost";
+import {UnitDto} from "./dtos/unit-dto";
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +16,6 @@ export class UnitService {
     getList(): Observable<UnitResponse> {
         return this.httpClient.get<UnitResponse>(this.url);
     }
-
 
     static convertToUnitDto(unit: Unit): UnitDto {
         return {

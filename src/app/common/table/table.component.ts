@@ -1,8 +1,18 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges
+} from '@angular/core';
 import {TableColumn} from "./models/table-column";
 import {RouterLink} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {NgClass} from "@angular/common";
+import {ButtonGroupComponent} from "../button-group/button-group.component";
 
 @Component({
     selector: 'app-table',
@@ -10,14 +20,13 @@ import {NgClass} from "@angular/common";
     imports: [
         RouterLink,
         FormsModule,
-        NgClass
+        NgClass,
+        ButtonGroupComponent
     ],
     templateUrl: './table.component.html',
     styleUrl: './table.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableComponent implements OnInit {
-
+export class TableComponent implements OnInit, OnChanges {
     @Input({
         required: true
     })
@@ -45,6 +54,11 @@ export class TableComponent implements OnInit {
         this.initialPages();
     }
 
+    ngOnChanges(changes: SimpleChanges): void {
+        this.initialPages();
+    }
+
+
     onDisplayCountChanged() {
         this.initialPages();
     }
@@ -64,7 +78,7 @@ export class TableComponent implements OnInit {
             return;
         }
 
-        if (pageIndex > this.pages.length-1) {
+        if (pageIndex > this.pages.length - 1) {
             return;
         }
 

@@ -1,9 +1,17 @@
 <app-wrapper>
     <div class="mx-50 bg-white dark:bg-slate-800 rounded-lg px-6 py-8 ring-1 ring-slate-900/5 shadow-xl">
-        @if (units) {
+        <app-button-group
+                class="inline-flex rounded-md shadow-sm mb-2"
+                [options]="ages"
+                [selectedOption]="ages[0]"
+                (onSelectedChanged)="onAgeChanged($event)"
+        >
+        </app-button-group>
+
+        @if (filteredUnits) {
             <app-table
                     [columns]="columns"
-                    [entities]="units"
+                    [entities]="filteredUnits"
                     [pagination]="true"
                     (onRowSelected)="navigateUnitDescription($event)">
             </app-table>

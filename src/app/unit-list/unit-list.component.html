@@ -1,14 +1,31 @@
 <app-wrapper>
     <div class="mx-50 bg-white dark:bg-slate-800 rounded-lg px-6 py-8 ring-1 ring-slate-900/5 shadow-xl">
-        <app-button-group
-                class="inline-flex rounded-md shadow-sm mb-2"
-                [options]="ages"
-                [selectedOption]="ages[0]"
-                (onSelectedChanged)="onAgeChanged($event)"
-        >
-        </app-button-group>
-
         @if (filteredUnits) {
+       
+
+            <div class="flex flex-col md:flex-row">
+                <div class="basis-1/2">
+                    <app-button-group
+                            class="inline-flex rounded-md shadow-sm mb-2"
+                            [options]="ages"
+                            [selectedOption]="ages[0]"
+                            (onSelectedChanged)="onAgeChanged($event)"
+                    >
+                    </app-button-group>
+                </div>
+                <div class="basis-1/2">
+                    <div class="flex flex-col">
+                        @for (costFilter of costFilters; track costFilter.type; let i = $index) {
+                            <app-range-input
+                                    [max]="200"
+                                    [costFilter]="costFilters[i]"
+                                    (costFilterChange)="filterUnits()"
+                            ></app-range-input>
+                        }
+                    </div>
+                </div>
+            </div>
+
             <app-table
                     [columns]="columns"
                     [entities]="filteredUnits"

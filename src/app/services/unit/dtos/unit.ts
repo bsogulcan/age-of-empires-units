@@ -18,3 +18,10 @@ export interface Unit {
     armor: string
     accuracy: string
 }
+
+export interface UnitDto {
+    id: number,
+    name: string,
+    age: string,
+    costs: string
+}

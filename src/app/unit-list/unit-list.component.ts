@@ -1,4 +1,4 @@
-import {Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {WrapperComponent} from "../common/wrapper/wrapper.component";
 import {TableComponent} from "../common/table/table.component";
 import {TableColumn} from "../common/table/models/table-column";
@@ -13,12 +13,7 @@ import {UnitDto} from "../services/unit/dtos/unit-dto";
 import {Store} from "@ngrx/store";
 import {Subscription} from "rxjs";
 import {UnitsActions} from "../states/unit/units.actions";
-import {
-    selectAgeFilter,
-    selectCostFilters,
-    selectFilteredUnits,
-    selectSelectedUnit
-} from "../states/unit/units.selector";
+import {selectAgeFilter, selectCostFilters, selectFilteredUnits,} from "../states/unit/units.selector";
 
 @Component({
     selector: 'app-unit-list',
@@ -30,13 +25,15 @@ import {
         RangeInputComponent
     ],
     templateUrl: './unit-list.component.html',
-    styleUrl: './unit-list.component.scss'
+    styleUrl: './unit-list.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UnitListComponent implements OnInit, OnDestroy {
 
     unitService = inject(UnitService);
     store = inject(Store);
     router = inject(Router);
+    changeDetector = inject(ChangeDetectorRef);
 
     service$ = new Subscription();
     filteredUnits$ = new Subscription();
@@ -98,19 +95,23 @@ export class UnitListComponent implements OnInit, OnDestroy {
                     this.store.dispatch(
                         UnitsActions.filterUnits({units: response.units})
                     );
+                    this.changeDetector.markForCheck();
                 }
             );
 
         this.filteredUnits$ = this.store.select(selectFilteredUnits).subscribe(filteredUnits => {
             this.filteredUnits = filteredUnits;
+            this.changeDetector.markForCheck()
         });
 
         this.ageFilter$ = this.store.select(selectAgeFilter).subscribe(age => {
             this.selectedAge = age;
+            this.changeDetector.markForCheck()
         });
 
         this.costFilters$ = this.store.select(selectCostFilters).subscribe(filters => {
-            this.costFilters = filters.map((item) => Object.assign({}, item))
+            this.costFilters = filters.map((item) => Object.assign({}, item));
+            this.changeDetector.markForCheck()
         });
 
     }

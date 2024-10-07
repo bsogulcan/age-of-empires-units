@@ -3,6 +3,7 @@ import {CostFilter} from "../../services/unit/dtos/cost-filter";
 import {createReducer, on} from "@ngrx/store";
 import {UnitsActions} from "./units.actions";
 import {ButtonGroupOption} from "../../common/button-group/models/button-group-option";
+import {UnitService} from "../../services/unit/unit.service";
 
 export interface UnitState {
     units: ReadonlyArray<Unit>,
@@ -10,6 +11,8 @@ export interface UnitState {
     ageFilter: ButtonGroupOption<number>,
     costFilters: Array<CostFilter>,
     selectedUnit: Unit | undefined,
+    previousUnit: Unit | undefined,
+    nextUnit: Unit | undefined
 }
 
 export const initialUnitState: UnitState = {
@@ -42,31 +45,34 @@ export const initialUnitState: UnitState = {
             max: 200
         }
     ],
-    selectedUnit: undefined
+    selectedUnit: undefined,
+    previousUnit: undefined,
+    nextUnit: undefined
 };
 
 export const unitsReducer = createReducer(
     initialUnitState,
-    on(UnitsActions.getList, (state, {response}) => ({
-        ...state,
-        units: response,
-        filteredUnits: response
-    })),
-    on(UnitsActions.filterUnits, (state, {units}) => ({
-        ...state,
-        filteredUnits: units
-    })),
-    on(UnitsActions.ageFilter, (state, {age}) => ({
-        ...state,
-        ageFilter: age
-    })),
-    on(UnitsActions.costFilter, (state, {costFilters}) => ({
-        ...state,
-        costFilters
-    })),
-    on(UnitsActions.selectUnit, (state, {unit}) => ({
-        ...state,
-        selectedUnit: unit
-    })),
-    
+    on(UnitsActions.getList, (state, {response}) => {
+        const filteredUnits = UnitService.filterUnits(response.map(item => Object.assign({}, item)), state.ageFilter.displayName, state.costFilters);
+        return {...state, units: response, filteredUnits};
+    }),
+    on(UnitsActions.ageFilter, (state, {age}) => {
+        const filteredUnits = UnitService.filterUnits(state.units.map(item => Object.assign({}, item)), age.displayName, state.costFilters);
+        return {...state, ageFilter: age, filteredUnits};
+    }),
+    on(UnitsActions.costFilter, (state, {costFilters}) => {
+        const filteredUnits = UnitService.filterUnits(state.units.map(item => Object.assign({}, item)), state.ageFilter.displayName, costFilters);
+        return {...state, costFilters, filteredUnits};
+    }),
+    on(UnitsActions.selectUnit, (state, {unit}) => {
+        let previousUnit = undefined;
+        let nextUnit = undefined;
+        const index = state.filteredUnits.findIndex(x => x.id == unit.id);
+        if (index !== -1) {
+            previousUnit = state.filteredUnits[index - 1];
+            nextUnit = state.filteredUnits[index + 1];
+        }
+
+        return {...state, selectedUnit: unit, previousUnit, nextUnit};
+    })
 );

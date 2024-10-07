@@ -28,7 +28,6 @@ export class ButtonGroupComponent implements OnInit {
     onSelectedChanged = new EventEmitter<ButtonGroupOption<any>>;
 
     ngOnInit() {
-        console.log(this.selectedOptionIndex);
     }
 
     onButtonClicked(option: ButtonGroupOption<any>) {

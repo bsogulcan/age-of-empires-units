@@ -11,7 +11,7 @@ import {RangeInputComponent} from "../common/range-input/range-input.component";
 import {CostFilter} from "../services/unit/dtos/cost-filter";
 import {UnitDto} from "../services/unit/dtos/unit-dto";
 import {Store} from "@ngrx/store";
-import {Subscription} from "rxjs";
+import {Subscription, take, tap} from "rxjs";
 import {UnitsActions} from "../states/unit/units.actions";
 import {selectAgeFilter, selectCostFilters, selectFilteredUnits,} from "../states/unit/units.selector";
 
@@ -91,16 +91,14 @@ export class UnitListComponent implements OnInit, OnDestroy {
             .subscribe(response => {
                     this.units = response.units;
                     this.store.dispatch(UnitsActions.getList({response: response.units}));
-                    this.store.dispatch(
-                        UnitsActions.filterUnits({units: response.units})
-                    );
                     this.changeDetector.markForCheck();
                 }
             );
 
-        this.filteredUnits$ = this.store.select(selectFilteredUnits).subscribe(filteredUnits => {
+        this.filteredUnits$ = this.store.select(selectFilteredUnits).pipe().subscribe(filteredUnits => {
             this.filteredUnits = filteredUnits.map(x => UnitService.convertToUnitDto(x));
             this.changeDetector.markForCheck()
+            console.log('Units filtered');
         });
 
         this.ageFilter$ = this.store.select(selectAgeFilter).subscribe(age => {
@@ -109,7 +107,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
         });
 
         this.costFilters$ = this.store.select(selectCostFilters).subscribe(filters => {
-            this.costFilters = filters.map((item) => Object.assign({}, item));
+            this.costFilters = filters.map(item => Object.assign({}, item));
             this.changeDetector.markForCheck()
         });
 
@@ -133,7 +131,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
     }
 
     onAgeChanged(event: ButtonGroupOption<any>) {
-        this.store.dispatch(UnitsActions.ageFilter({age: event}))
+        this.store.dispatch(UnitsActions.ageFilter({age: event}));
     }
 
     onFilterChanged() {

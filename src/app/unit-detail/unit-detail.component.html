@@ -20,8 +20,8 @@
                 </h1>
 
                 <div class="flex-row">
-                    @if (previousUnitId) {
-                        <span (click)="navigatePreviousUnit()"
+                    @if (previousUnit) {
+                        <span (click)="navigateUnit(previousUnit)"
                               class="inline-flex items-center justify-center p-2 bg-indigo-500 rounded-md shadow-lg mr-2">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                  stroke="currentColor" class="size-6">
@@ -31,8 +31,8 @@
                         </span>
                     }
 
-                    @if (nextUnitId) {
-                        <span (click)="navigateNextUnit()"
+                    @if (nextUnit) {
+                        <span (click)="navigateUnit(nextUnit)"
                               class="inline-flex items-center justify-center p-2 bg-indigo-500 rounded-md shadow-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                  stroke="currentColor" class="size-6">

@@ -30,4 +30,20 @@ describe('HeaderComponent', () => {
         expect(app.title).toEqual('Age of Empires');
     });
 
+    it('should toggle menu', () => {
+        expect(component.isMenuOpen).toBeFalse();
+        component.toggleMenu();
+        expect(component.isMenuOpen).toBeTrue();
+    });
+
+    it('should render navigate links', () => {
+        const homeLink = fixture.debugElement.nativeElement.querySelector('#home-link');
+        expect(homeLink).toBeTruthy();
+        expect(homeLink.getAttribute('href')).toBe('/')
+
+        const unitsLink = fixture.debugElement.nativeElement.querySelector('#units-link');
+        expect(unitsLink).toBeTruthy();
+        expect(unitsLink.getAttribute('href')).toBe('/unit-list')
+    });
+
 });

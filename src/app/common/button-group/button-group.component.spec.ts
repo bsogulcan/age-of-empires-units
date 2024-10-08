@@ -3,6 +3,8 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {ButtonGroupComponent} from './button-group.component';
 import {ButtonGroupOption} from "./models/button-group-option";
 import {By} from "@angular/platform-browser";
+import {EventEmitter} from "@angular/core";
+import {resultMemoize} from "@ngrx/store";
 
 describe('ButtonGroupComponent', () => {
     let component: ButtonGroupComponent;
@@ -58,4 +60,20 @@ describe('ButtonGroupComponent', () => {
         expect(button2!.className.includes('ring-2')).toBeFalsy();
     });
 
+    it('should set index on click', () => {
+        let button = document.getElementById('btn-' + 2);
+        button!.click();
+        expect(component.selectedOptionIndex).toBe(2);
+    });
+
+    it('should emit on selected change', () => {
+        let button = document.getElementById('btn-' + 1);
+
+        component.onSelectedChanged.subscribe(selectedOption => {
+            expect(selectedOption).toBe(options[1]);
+        });
+
+        button!.click();
+        fixture.detectChanges();
+    });
 });

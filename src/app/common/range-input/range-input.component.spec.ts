@@ -1,23 +1,24 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { RangeInputComponent } from './range-input.component';
+import {RangeInputComponent} from './range-input.component';
 
 describe('RangeInputComponent', () => {
-  let component: RangeInputComponent;
-  let fixture: ComponentFixture<RangeInputComponent>;
+    let component: RangeInputComponent;
+    let fixture: ComponentFixture<RangeInputComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [RangeInputComponent]
-    })
-    .compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [RangeInputComponent]
+        })
+            .compileComponents();
 
-    fixture = TestBed.createComponent(RangeInputComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        fixture = TestBed.createComponent(RangeInputComponent);
+        fixture.componentRef.setInput('costFilter', {});
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

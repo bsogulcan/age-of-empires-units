@@ -11,7 +11,7 @@ import {RangeInputComponent} from "../common/range-input/range-input.component";
 import {CostFilter} from "../services/unit/dtos/cost-filter";
 import {UnitDto} from "../services/unit/dtos/unit-dto";
 import {Store} from "@ngrx/store";
-import {Subscription, take, tap} from "rxjs";
+import {Subscription} from "rxjs";
 import {UnitsActions} from "../states/unit/units.actions";
 import {selectAgeFilter, selectCostFilters, selectFilteredUnits,} from "../states/unit/units.selector";
 

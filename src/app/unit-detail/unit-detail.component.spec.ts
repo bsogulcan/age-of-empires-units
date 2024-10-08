@@ -1,23 +1,28 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { UnitDetailComponent } from './unit-detail.component';
+import {UnitDetailComponent} from './unit-detail.component';
+import {provideLocationMocks} from "@angular/common/testing";
+import {StoreModule} from "@ngrx/store";
+import {unitsReducer} from "../states/unit/units.reducer";
+import {RouterTestingModule} from "@angular/router/testing";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('UnitDetailComponent', () => {
-  let component: UnitDetailComponent;
-  let fixture: ComponentFixture<UnitDetailComponent>;
+    let component: UnitDetailComponent;
+    let fixture: ComponentFixture<UnitDetailComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [UnitDetailComponent]
-    })
-    .compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [UnitDetailComponent, StoreModule.forRoot(unitsReducer), RouterTestingModule, HttpClientModule]
+        })
+            .compileComponents();
 
-    fixture = TestBed.createComponent(UnitDetailComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        fixture = TestBed.createComponent(UnitDetailComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

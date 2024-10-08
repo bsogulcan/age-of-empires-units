@@ -2,6 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {HomeComponent} from './home.component';
 import {RouterTestingModule} from "@angular/router/testing";
+import {By} from "@angular/platform-browser";
 
 describe('HomeComponent', () => {
     let component: HomeComponent;
@@ -20,5 +21,15 @@ describe('HomeComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should render image', () => {
+        const image = fixture.debugElement.query(By.css('img.rounded-3xl'));
+        expect(image).toBeTruthy();
+    });
+
+    it('should navigate to unit list', () => {
+        const link = fixture.debugElement.query(By.css('div.rounded-3xl > a:nth-child(1)'));
+        expect(link.nativeElement.getAttribute('href')).toBe('/unit-list');
     });
 });

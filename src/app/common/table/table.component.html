@@ -1,7 +1,7 @@
-<div class="overflow-x-auto text-slate-900 dark:text-white">
-    <table class="min-w-full bg-white border border-gray-300 dark:bg-slate-800 dark:border-slate-200">
+<div class="overflow-x-auto text-white">
+    <table class="min-w-full border bg-slate-800 border-slate-200">
         <thead>
-        <tr class="bg-gray-200 dark:bg-slate-900 uppercase text-sm leading-normal">
+        <tr class="bg-slate-900 uppercase text-sm leading-normal">
             @for (column of columns; track column.name) {
                 <th class="py-3 px-6 text-left">{{ column.displayName }}</th>
             }
@@ -24,7 +24,7 @@
             <select id="options" name="options"
                     [(ngModel)]="displayCount"
                     (change)="onDisplayCountChanged()"
-                    class="block w-full p-2 bg-white dark:bg-slate-800 border border-gray-300 shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    class="block w-full p-2 bg-slate-800 border border-gray-300 shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                 <option [value]="10">10</option>
                 <option [value]="25">25</option>
                 <option [value]="50">50</option>

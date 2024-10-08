@@ -64,8 +64,8 @@ export class TableComponent implements OnInit, OnChanges {
 
     initialPages() {
         this.pages = [];
-        const pageCount = Math.floor(this.entities.length / this.displayCount);
-        for (let i = 0; i <= pageCount; i++) {
+        const pageCount = Math.ceil(this.entities.length / this.displayCount);
+        for (let i = 0; i < pageCount; i++) {
             this.pages.push(i);
         }
 

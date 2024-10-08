@@ -98,7 +98,6 @@ export class UnitListComponent implements OnInit, OnDestroy {
         this.filteredUnits$ = this.store.select(selectFilteredUnits).pipe().subscribe(filteredUnits => {
             this.filteredUnits = filteredUnits.map(x => UnitService.convertToUnitDto(x));
             this.changeDetector.markForCheck()
-            console.log('Units filtered');
         });
 
         this.ageFilter$ = this.store.select(selectAgeFilter).subscribe(age => {

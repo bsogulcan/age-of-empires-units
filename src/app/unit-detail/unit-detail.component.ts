@@ -56,44 +56,34 @@ export class UnitDetailComponent implements OnInit, OnDestroy {
 
         this.filteredUnits$ = this.store.select(selectFilteredUnits).subscribe(filteredUnits => {
             this.filteredUnits = filteredUnits.map((item) => Object.assign({}, item));
-            console.log(this.filteredUnits.length, 'FilteredUnits')
         })
 
         this.selectPreviousUnit$ = this.store.select(selectPreviousUnit)
             .subscribe(unit => {
                     this.previousUnit = unit;
-                    console.log(this.previousUnit, 'PreviuosUnit$')
                 }
             );
 
         this.selectNextUnit$ = this.store.select(selectNextUnit)
             .subscribe(unit => {
                     this.nextUnit = unit;
-                    console.log(this.nextUnit, 'NextUnit$')
                 }
             );
 
-        // this.activatedRoute.params.subscribe(params => {
-        //     const unitId = params['id'];
-        //     if (unitId) {
-        //         this.service$ = this.unitService.getList().subscribe({
-        //             next: response => {
-        //                 this.store.dispatch(UnitsActions.getList({response: response.units}));
-        //                 this.store.dispatch(
-        //                     UnitsActions.filterUnits({units: response.units})
-        //                 );
-        //
-        //                 const selectedUnit = response.units.find(x => x.id == parseInt(unitId));
-        //
-        //                 if (selectedUnit) {
-        //                     this.store.dispatch(UnitsActions.selectUnit({unit: selectedUnit}))
-        //                 }
-        //             }
-        //         })
-        //
-        //         return;
-        //     }
-        // })
+        this.activatedRoute.params.subscribe(params => {
+            const unitId = params['id'];
+            if (unitId) {
+                this.service$ = this.unitService.getList().subscribe({
+                    next: response => {
+                        this.store.dispatch(UnitsActions.getList({response: response.units}));
+                        const selectedUnit = response.units.find(x => x.id == parseInt(unitId));
+                        if (selectedUnit) {
+                            this.store.dispatch(UnitsActions.selectUnit({unit: selectedUnit}))
+                        }
+                    }
+                })
+            }
+        })
     }
 
     ngOnDestroy(): void {

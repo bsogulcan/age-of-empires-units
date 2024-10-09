@@ -12,7 +12,7 @@
             <label [for]="costFilter.type+'-min'"
                    class="w-10 ms-2 text-sm font-medium text-gray-300">Min</label>
             <input
-                    (change)="costFilterChange.emit(costFilter)"
+                    (change)="onValueChanged('min')"
                     [(ngModel)]="costFilter.min"
                     [disabled]="!costFilter.enabled"
                     [id]="costFilter.type+'-min'"
@@ -30,7 +30,7 @@
             <label [for]="costFilter.type+'-max'"
                    class="w-10 ms-2 text-sm font-medium text-gray-300">Max</label>
             <input
-                    (change)="costFilterChange.emit(costFilter)"
+                    (change)="onValueChanged('max')"
                     [(ngModel)]="costFilter.max"
                     [disabled]="!costFilter.enabled"
                     [id]="costFilter.type+'-max'"

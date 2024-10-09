@@ -25,4 +25,15 @@ export class RangeInputComponent {
 
     @Input()
     max: number = 100;
+
+    onValueChanged(slider: 'min' | 'max') {
+        if (slider == 'min' && this.costFilter.min > this.costFilter.max) {
+            this.costFilter.min = this.costFilter.max;
+        }
+        if (slider == 'max' && this.costFilter.max < this.costFilter.min) {
+            this.costFilter.max = this.costFilter.min;
+        }
+
+        this.costFilterChange.emit(this.costFilter);
+    }
 }

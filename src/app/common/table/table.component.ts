@@ -47,8 +47,8 @@ export class TableComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         this.initialPages();
+        console.log(this.entities)
     }
-
 
     onDisplayCountChanged() {
         this.initialPages();
@@ -69,7 +69,7 @@ export class TableComponent implements OnInit, OnChanges {
             return;
         }
 
-        if (pageIndex > this.pages.length - 1) {
+        if (this.pages.length > 0 && pageIndex > this.pages.length - 1) {
             return;
         }
 

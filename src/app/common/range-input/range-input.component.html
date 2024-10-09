@@ -1,4 +1,4 @@
-<div class="flex flex-row mb-2">
+<div class="flex flex-row ml-2 mb-2">
     <div class="flex w-20">
         <input (change)="costFilterChange.emit(costFilter)" [(ngModel)]="costFilter.enabled"
                [id]="costFilter.type"
@@ -7,7 +7,7 @@
         <label [for]="costFilter.type"
                class="ms-2 text-sm font-medium text-gray-300">{{ costFilter.displayName }} </label>
     </div>
-    <div class="flex flex-col">
+    <div class="flex flex-col w-full">
         <div class="flex w-full">
             <label [for]="costFilter.type+'-min'"
                    class="w-10 ms-2 text-sm font-medium text-gray-300">Min</label>
@@ -18,7 +18,7 @@
                     [id]="costFilter.type+'-min'"
                     [max]="max"
                     [min]="min"
-                    class="rounded-lg cursor-pointer bg-gray-700"
+                    class="rounded-lg cursor-pointer bg-gray-700 w-full"
                     type="range"
             >
             <span class="ms-2 text-sm font-medium text-gray-300">
@@ -36,7 +36,7 @@
                     [id]="costFilter.type+'-max'"
                     [max]="max"
                     [min]="min"
-                    class="rounded-lg cursor-pointer bg-gray-700"
+                    class="rounded-lg cursor-pointer bg-gray-700 w-full"
                     type="range"
             >
             <span class="ms-2 text-sm font-medium text-gray-300">

@@ -5,7 +5,7 @@ import {ButtonGroupOption} from "./models/button-group-option";
 describe('ButtonGroupComponent', () => {
     let component: ButtonGroupComponent;
     let fixture: ComponentFixture<ButtonGroupComponent>;
-    let options: Array<ButtonGroupOption<number>>
+    let options: ButtonGroupOption<number>[]
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -50,22 +50,22 @@ describe('ButtonGroupComponent', () => {
         fixture.componentRef.setInput('selectedOptionIndex', 1);
         fixture.detectChanges();
 
-        let button1 = document.getElementById('btn-' + 1);
+        const button1 = document.getElementById('btn-' + 1);
         button2 = document.getElementById('btn-' + 2);
         expect(button1!.className.includes('ring-2')).toBeTruthy();
         expect(button2!.className.includes('ring-2')).toBeFalsy();
     });
 
     it('should set index on click', () => {
-        let button = document.getElementById('btn-' + 2);
+        const button = document.getElementById('btn-' + 2);
         button!.click();
         expect(component.selectedOptionIndex).toBe(2);
     });
 
     it('should emit on selected change', () => {
-        let button = document.getElementById('btn-' + 1);
+        const button = document.getElementById('btn-' + 1);
 
-        component.onSelectedChanged.subscribe(selectedOption => {
+        component.selectedChanged.subscribe(selectedOption => {
             expect(selectedOption).toBe(options[1]);
         });
 

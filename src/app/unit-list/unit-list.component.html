@@ -7,7 +7,7 @@
                             class="inline-flex rounded-md shadow-sm mb-2"
                             [options]="ages"
                             [selectedOptionIndex]="selectedAgeIndex"
-                            (onSelectedChanged)="onAgeChanged($event)"
+                            (selectedChanged)="onAgeChanged($event)"
                     >
                     </app-button-group>
                 </div>
@@ -28,7 +28,7 @@
                     [columns]="columns"
                     [entities]="filteredUnits"
                     [pagination]="true"
-                    (onRowSelected)="navigateUnitDescription($event)">
+                    (rowSelected)="navigateUnitDescription($event)">
             </app-table>
         }
     </div>

@@ -6,7 +6,7 @@ import {Unit} from "./dtos/unit";
 describe('UnitService', () => {
     let service: UnitService;
     let archer: Unit;
-    let units: Array<Unit>;
+    let units: Unit[];
 
     beforeEach(() => {
         TestBed.configureTestingModule({

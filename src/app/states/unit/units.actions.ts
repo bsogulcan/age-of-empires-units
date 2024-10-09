@@ -6,9 +6,9 @@ import {ButtonGroupOption} from "../../common/button-group/models/button-group-o
 export const UnitsActions = createActionGroup({
     source: 'Units',
     events: {
-        'Get List': props<{ response: ReadonlyArray<Unit> }>(),
+        'Get List': props<{ response: readonly Unit[] }>(),
         'Age Filter': props<{ age: ButtonGroupOption<number> }>(),
-        'Cost Filter': props<{ costFilters: Array<CostFilter> }>(),
+        'Cost Filter': props<{ costFilters: CostFilter[] }>(),
         'Select Unit': props<{ unit: Unit }>()
     },
 });

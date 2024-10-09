@@ -13,7 +13,7 @@ import {NgClass} from "@angular/common";
     styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-    title: string = 'Age of Empires';
+    title = 'Age of Empires';
     isMenuOpen = false;
 
     toggleMenu() {

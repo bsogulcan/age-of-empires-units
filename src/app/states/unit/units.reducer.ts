@@ -6,10 +6,10 @@ import {ButtonGroupOption} from "../../common/button-group/models/button-group-o
 import {UnitService} from "../../services/unit/unit.service";
 
 export interface UnitState {
-    units: ReadonlyArray<Unit>,
-    filteredUnits: ReadonlyArray<Unit>
+    units: readonly Unit[],
+    filteredUnits: readonly Unit[]
     ageFilter: ButtonGroupOption<number>,
-    costFilters: Array<CostFilter>,
+    costFilters: CostFilter[],
     selectedUnit: Unit | undefined,
     previousUnit: Unit | undefined,
     nextUnit: Unit | undefined

@@ -21,10 +21,10 @@ export class RangeInputComponent {
     costFilterChange = new EventEmitter<CostFilter>();
 
     @Input()
-    min: number = 0;
+    min = 0;
 
     @Input()
-    max: number = 100;
+    max = 100;
 
     onValueChanged(slider: 'min' | 'max') {
         if (slider == 'min' && this.costFilter.min > this.costFilter.max) {

@@ -21,30 +21,31 @@ export class TableComponent implements OnInit, OnChanges {
     @Input({
         required: true
     })
-    columns!: Array<TableColumn>;
+    columns!: TableColumn[];
 
     @Input({
         required: true
     })
-    entities!: Array<any>;
+    entities!: any[];
 
     @Input()
-    pagination: boolean = false;
+    pagination = false;
 
     @Output()
-    public onRowSelected = new EventEmitter<any>();
+    public rowSelected = new EventEmitter<any>();
 
-    rows: Array<any> = [];
+    rows: any[] = [];
 
-    skip: number = 0;
+    skip = 0;
     displayCount: 10 | 25 | 50 = 10;
-    selectedPageIndex: number = 0;
-    pages: Array<number> = [];
+    selectedPageIndex = 0;
+    pages: number[] = [];
 
     ngOnInit(): void {
         this.initialPages();
     }
 
+    // Change detection
     ngOnChanges(changes: SimpleChanges): void {
         this.initialPages();
     }

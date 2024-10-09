@@ -13,7 +13,7 @@ describe('UnitListComponent', () => {
     let component: UnitListComponent;
     let fixture: ComponentFixture<UnitListComponent>;
     let unitService: jasmine.SpyObj<UnitService>;
-    let units: Array<Unit>;
+    let units: Unit[];
     let store: jasmine.SpyObj<Store>;
     let mockRouter: jasmine.SpyObj<Router>;
 

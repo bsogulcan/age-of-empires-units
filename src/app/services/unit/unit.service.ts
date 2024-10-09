@@ -45,7 +45,7 @@ export class UnitService {
         return parts.length ? parts.join(', ') : '~';
     }
 
-    static filterUnits(units: Array<Unit>, age: string, costs: Array<CostFilter>): Array<Unit> {
+    static filterUnits(units: Unit[], age: string, costs: CostFilter[]): Unit[] {
         if (age != 'All') {
             units = units.filter(x => x.age == age)
         }
@@ -72,7 +72,7 @@ export class UnitService {
         return units;
     }
 
-    static findPreviousUnit(units: ReadonlyArray<Unit>, unit: Unit) {
+    static findPreviousUnit(units: readonly Unit[], unit: Unit) {
         const index = units.findIndex(x => x.id == unit.id);
         if (index === -1) {
             return;
@@ -85,7 +85,7 @@ export class UnitService {
         return units[index - 1];
     }
 
-    static findNextUnit(units: ReadonlyArray<Unit>, unit: Unit) {
+    static findNextUnit(units: readonly Unit[], unit: Unit) {
         const index = units.findIndex(x => x.id == unit.id);
         if (index === -1) {
             return;

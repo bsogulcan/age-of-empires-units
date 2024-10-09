@@ -19,16 +19,16 @@ export class ButtonGroupComponent {
     @Input({
         required: true
     })
-    options!: Array<ButtonGroupOption<any>>;
+    options!: ButtonGroupOption<any>[];
 
     @Input()
     selectedOptionIndex?: number;
 
     @Output()
-    onSelectedChanged = new EventEmitter<ButtonGroupOption<any>>;
+    selectedChanged = new EventEmitter<ButtonGroupOption<any>>;
 
     onButtonClicked(option: ButtonGroupOption<any>) {
         this.selectedOptionIndex = this.options.indexOf(option);
-        this.onSelectedChanged.emit(option);
+        this.selectedChanged.emit(option);
     }
 }

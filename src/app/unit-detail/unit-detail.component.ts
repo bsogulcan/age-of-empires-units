@@ -47,7 +47,7 @@ export class UnitDetailComponent implements OnInit, OnDestroy {
     nextUnit: Unit | undefined;
 
     filteredUnits$ = new Subscription();
-    filteredUnits: Array<Unit> = [];
+    filteredUnits: Unit[] = [];
 
     ngOnInit(): void {
         this.selectedUnit$ = this.store.select(selectSelectedUnit)

@@ -42,7 +42,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
     ageFilter$ = new Subscription();
     costFilters$ = new Subscription();
 
-    columns: Array<TableColumn> = [
+    columns: TableColumn[] = [
         {
             name: 'id',
             displayName: 'Id',
@@ -83,10 +83,10 @@ export class UnitListComponent implements OnInit, OnDestroy {
         },
     ];
 
-    units: Array<Unit> = [];
-    filteredUnits: Array<UnitDto> = [];
-    selectedAgeIndex: number = 0;
-    costFilters: Array<CostFilter> = []
+    units: Unit[] = [];
+    filteredUnits: UnitDto[] = [];
+    selectedAgeIndex = 0;
+    costFilters: CostFilter[] = []
 
     ngOnInit(): void {
         this.titleService.setTitle('Units | Age of Empires');
@@ -132,7 +132,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
         this.router.navigate(['/unit/', unit.id]);
     }
 
-    onAgeChanged(event: ButtonGroupOption<any>) {
+    onAgeChanged(event: ButtonGroupOption<number>) {
         this.store.dispatch(UnitsActions.ageFilter({age: event}));
     }
 

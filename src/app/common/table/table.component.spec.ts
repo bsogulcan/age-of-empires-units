@@ -6,8 +6,8 @@ import {By} from "@angular/platform-browser";
 describe('TableComponent', () => {
     let component: TableComponent;
     let fixture: ComponentFixture<TableComponent>;
-    let columns: Array<TableColumn>;
-    let entities: Array<any>;
+    let columns: TableColumn[];
+    let entities: unknown[];
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -73,7 +73,7 @@ describe('TableComponent', () => {
     });
 
     it('should emit on row selected', () => {
-        component.onRowSelected.subscribe(selectedRow => {
+        component.rowSelected.subscribe(selectedRow => {
             expect(selectedRow).toBe(entities[2]);
         });
 

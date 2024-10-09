@@ -53,5 +53,4 @@ describe('UnitDetailComponent', () => {
         expect(component.filteredUnits$.unsubscribe).toHaveBeenCalled();
     });
 
-
 });

@@ -15,6 +15,7 @@ import {RangeInputComponent} from "../common/range-input/range-input.component";
 import {TableComponent} from "../common/table/table.component";
 import {UnitService} from "../services/unit/unit.service";
 import {UnitsActions} from "../states/unit/units.actions";
+import {Title} from "@angular/platform-browser";
 
 @Component({
     selector: 'app-unit-detail',
@@ -34,6 +35,7 @@ export class UnitDetailComponent implements OnInit, OnDestroy {
     router = inject(Router);
     activatedRoute = inject(ActivatedRoute);
     unitService = inject(UnitService);
+    titleService = inject(Title);
 
     service$ = new Subscription();
     selectedUnit$ = new Subscription();
@@ -51,6 +53,7 @@ export class UnitDetailComponent implements OnInit, OnDestroy {
         this.selectedUnit$ = this.store.select(selectSelectedUnit)
             .subscribe(unit => {
                 this.selectedUnit = unit;
+                this.titleService.setTitle(this.selectedUnit?.name + ' | Age of Empires');
                 return;
             });
 

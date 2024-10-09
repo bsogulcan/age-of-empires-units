@@ -14,6 +14,7 @@ import {Store} from "@ngrx/store";
 import {Subscription} from "rxjs";
 import {UnitsActions} from "../states/unit/units.actions";
 import {selectAgeFilter, selectCostFilters, selectFilteredUnits,} from "../states/unit/units.selector";
+import {Title} from "@angular/platform-browser";
 
 @Component({
     selector: 'app-unit-list',
@@ -34,6 +35,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
     store = inject(Store);
     router = inject(Router);
     changeDetector = inject(ChangeDetectorRef);
+    titleService = inject(Title);
 
     service$ = new Subscription();
     filteredUnits$ = new Subscription();
@@ -87,6 +89,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
     costFilters: Array<CostFilter> = []
 
     ngOnInit(): void {
+        this.titleService.setTitle('Units | Age of Empires');
         this.service$ = this.unitService.getList()
             .subscribe(response => {
                     this.units = response.units;

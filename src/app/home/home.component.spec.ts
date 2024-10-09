@@ -31,4 +31,9 @@ describe('HomeComponent', () => {
         const link = fixture.debugElement.query(By.css('div.rounded-3xl > a:nth-child(1)'));
         expect(link.nativeElement.getAttribute('href')).toBe('/unit-list');
     });
+
+    it('should set title', () => {
+        const title = component.titleService.getTitle();
+        expect(title).toBe('Age of Empires');
+    });
 });

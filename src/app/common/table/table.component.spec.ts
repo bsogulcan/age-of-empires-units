@@ -77,7 +77,7 @@ describe('TableComponent', () => {
             expect(selectedRow).toBe(entities[2]);
         });
 
-        const thirdRow = fixture.debugElement.query(By.css('tr.border-b:nth-child(3)'));
+        const thirdRow = fixture.debugElement.query(By.css('tr.border:nth-child(3)'));
         thirdRow.nativeElement.click();
     });
 

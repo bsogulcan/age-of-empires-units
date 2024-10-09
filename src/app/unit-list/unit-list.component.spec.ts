@@ -1,7 +1,6 @@
 import {ComponentFixture, TestBed, tick} from '@angular/core/testing';
 import {UnitListComponent} from './unit-list.component';
 import {HttpClientModule} from "@angular/common/http";
-import {RouterTestingModule} from "@angular/router/testing";
 import {provideMockStore} from "@ngrx/store/testing";
 import {UnitService} from "../services/unit/unit.service";
 import {of} from "rxjs";
@@ -9,6 +8,7 @@ import {Unit} from "../services/unit/dtos/unit";
 import {Store} from "@ngrx/store";
 import {UnitDto} from "../services/unit/dtos/unit-dto";
 import {Router} from "@angular/router";
+import {Title} from "@angular/platform-browser";
 
 describe('UnitListComponent', () => {
     let component: UnitListComponent;
@@ -145,6 +145,11 @@ describe('UnitListComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should set title', () => {
+        const title = component.titleService.getTitle();
+        expect(title).toBe('Units | Age of Empires');
     });
 
     it('should fetch units and set up subscriptions', () => {

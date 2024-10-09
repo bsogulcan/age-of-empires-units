@@ -1,7 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {UnitDetailComponent} from './unit-detail.component';
-import {provideLocationMocks} from "@angular/common/testing";
 import {StoreModule} from "@ngrx/store";
 import {unitsReducer} from "../states/unit/units.reducer";
 import {RouterTestingModule} from "@angular/router/testing";

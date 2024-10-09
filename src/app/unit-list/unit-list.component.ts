@@ -121,11 +121,11 @@ export class UnitListComponent implements OnInit, OnDestroy {
 
     navigateUnitDescription(unitDto: UnitDto) {
         const unit = this.units.find(x => x.id == unitDto.id);
+        this.store.dispatch(UnitsActions.selectUnit({unit: unit!}));
         if (!unit) {
             return;
         }
 
-        this.store.dispatch(UnitsActions.selectUnit({unit: unit}));
         this.router.navigate(['/unit/', unit.id]);
     }
 

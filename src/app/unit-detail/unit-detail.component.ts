@@ -93,9 +93,4 @@ export class UnitDetailComponent implements OnInit, OnDestroy {
         this.service$?.unsubscribe();
         this.filteredUnits$.unsubscribe();
     }
-
-    navigateUnit(unit: Unit) {
-        this.store.dispatch(UnitsActions.selectUnit({unit: unit}));
-        this.router.navigate(['/unit/' + unit.id]);
-    }
 }

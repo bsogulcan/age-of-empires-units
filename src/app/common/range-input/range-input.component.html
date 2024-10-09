@@ -1,9 +1,9 @@
 <div class="flex flex-row mb-2">
     <div class="flex w-20">
-        <input [id]="costFilter.type" type="checkbox"
-               (change)="costFilterChange.emit(costFilter)"
-               [(ngModel)]="costFilter.enabled"
-               class="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600">
+        <input (change)="costFilterChange.emit(costFilter)" [(ngModel)]="costFilter.enabled"
+               [id]="costFilter.type"
+               class="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600"
+               type="checkbox">
         <label [for]="costFilter.type"
                class="ms-2 text-sm font-medium text-gray-300">{{ costFilter.displayName }} </label>
     </div>
@@ -12,14 +12,14 @@
             <label [for]="costFilter.type+'-min'"
                    class="w-10 ms-2 text-sm font-medium text-gray-300">Min</label>
             <input
-                    [id]="costFilter.type+'-min'"
-                    type="range"
-                    [disabled]="!costFilter.enabled"
-                    [min]="min"
-                    [(ngModel)]="costFilter.min"
-                    [max]="max"
                     (change)="costFilterChange.emit(costFilter)"
+                    [(ngModel)]="costFilter.min"
+                    [disabled]="!costFilter.enabled"
+                    [id]="costFilter.type+'-min'"
+                    [max]="max"
+                    [min]="min"
                     class="rounded-lg cursor-pointer bg-gray-700"
+                    type="range"
             >
             <span class="ms-2 text-sm font-medium text-gray-300">
                 {{ costFilter.min }}
@@ -30,14 +30,14 @@
             <label [for]="costFilter.type+'-max'"
                    class="w-10 ms-2 text-sm font-medium text-gray-300">Max</label>
             <input
-                    [id]="costFilter.type+'-max'"
-                    type="range"
-                    [disabled]="!costFilter.enabled"
-                    [min]="min"
-                    [(ngModel)]="costFilter.max"
                     (change)="costFilterChange.emit(costFilter)"
+                    [(ngModel)]="costFilter.max"
+                    [disabled]="!costFilter.enabled"
+                    [id]="costFilter.type+'-max'"
                     [max]="max"
+                    [min]="min"
                     class="rounded-lg cursor-pointer bg-gray-700"
+                    type="range"
             >
             <span class="ms-2 text-sm font-medium text-gray-300">
                 {{ costFilter.max }}

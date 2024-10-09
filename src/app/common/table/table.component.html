@@ -1,6 +1,3 @@
-
-
-
 <div class="overflow-x-auto text-white">
     <div class="relative overflow-x-auto">
         <table class="w-full text-sm text-left text-gray-400">
@@ -24,13 +21,13 @@
             </tbody>
         </table>
     </div>
-    
+
     <div class="flex flex-row-reverse mt-2 gap-4">
         <div>
-            <select id="options" name="options"
-                    [(ngModel)]="displayCount"
-                    (change)="onDisplayCountChanged()"
-                    class="block w-full p-2 bg-slate-800 border border-gray-300 shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+            <select (change)="onDisplayCountChanged()" [(ngModel)]="displayCount"
+                    class="block w-full p-2 bg-slate-800 border border-gray-300 shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    id="options"
+                    name="options">
                 <option [value]="10">10</option>
                 <option [value]="25">25</option>
                 <option [value]="50">50</option>

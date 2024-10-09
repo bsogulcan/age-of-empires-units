@@ -11,12 +11,8 @@ import {CostFilter} from "./dtos/cost-filter";
     providedIn: 'root'
 })
 export class UnitService {
-    private url = 'database.json';
     httpClient = inject(HttpClient);
-
-    getList(): Observable<UnitResponse> {
-        return this.httpClient.get<UnitResponse>(this.url);
-    }
+    private url = 'database.json';
 
     static convertToUnitDto(unit: Unit): UnitDto {
         return {
@@ -100,6 +96,10 @@ export class UnitService {
         }
 
         return units[index + 1];
+    }
+
+    getList(): Observable<UnitResponse> {
+        return this.httpClient.get<UnitResponse>(this.url);
     }
 
 }

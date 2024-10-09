@@ -1,24 +1,30 @@
+
+
+
 <div class="overflow-x-auto text-white">
-    <table class="min-w-full border bg-slate-800 border-slate-200">
-        <thead>
-        <tr class="bg-slate-900 uppercase text-sm leading-normal">
-            @for (column of columns; track column.name) {
-                <th class="py-3 px-6 text-left">{{ column.displayName }}</th>
-            }
-        </tr>
-        </thead>
-        <tbody class="text-sm font-light">
-            @for (entity of rows; track entity) {
-                <tr class="border-b border-gray-300 hover:bg-slate-900 cursor-pointer"
-                    (click)="onRowSelected.emit(entity)"
-                >
-                    @for (column of columns; track column.name) {
-                        <td class="py-3 px-6 text-left">{{ entity[column.name] }}</td>
-                    }
-                </tr>
-            }
-        </tbody>
-    </table>
+    <div class="relative overflow-x-auto">
+        <table class="w-full text-sm text-left text-gray-400">
+            <thead class="text-xs uppercase bg-gray-700 text-gray-400">
+            <tr>
+                @for (column of columns; track column.name) {
+                    <th scope="col" class="px-6 py-3">{{ column.displayName }}</th>
+                }
+            </tr>
+            </thead>
+            <tbody>
+                @for (entity of rows; track entity) {
+                    <tr class="border bg-gray-800 border-gray-700 cursor-pointer hover:bg-slate-900"
+                        (click)="onRowSelected.emit(entity)"
+                    >
+                        @for (column of columns; track column.name) {
+                            <td class="px-6 py-4">{{ entity[column.name] }}</td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    
     <div class="flex flex-row-reverse mt-2 gap-4">
         <div>
             <select id="options" name="options"

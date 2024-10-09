@@ -1,9 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-
 import {HeaderComponent} from './header.component';
-import {provideLocationMocks} from "@angular/common/testing";
 import {RouterTestingModule} from "@angular/router/testing";
-import {AppComponent} from "../../app.component";
 
 describe('HeaderComponent', () => {
     let component: HeaderComponent;

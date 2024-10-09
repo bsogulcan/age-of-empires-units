@@ -1,5 +1,4 @@
 import {TestBed} from '@angular/core/testing';
-
 import {UnitService} from './unit.service';
 import {provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
 import {Unit} from "./dtos/unit";
@@ -205,4 +204,23 @@ describe('UnitService', () => {
         expect(filteredUnits.length).toBe(3);
         expect(filteredUnits).toEqual([units[0], units[1], units[2]]);
     });
+
+    it('should find previous unit', () => {
+        let previousUnit = UnitService.findPreviousUnit([...units], units[0]);
+        expect(previousUnit).toBeFalsy();
+
+        previousUnit = UnitService.findPreviousUnit([...units], units[1]);
+        expect(previousUnit).toEqual(units[0]);
+        expect(previousUnit!.id).toEqual(units[0].id);
+    });
+
+    it('should find next unit', () => {
+        let nextUnit = UnitService.findNextUnit([...units], units[3]);
+        expect(nextUnit).toBeFalsy();
+
+        nextUnit = UnitService.findNextUnit([...units], units[0]);
+        expect(nextUnit).toBeTruthy();
+        expect(nextUnit!.id).toBe(units[1].id);
+    });
+
 });

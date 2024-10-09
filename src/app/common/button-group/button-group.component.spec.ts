@@ -1,10 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-
 import {ButtonGroupComponent} from './button-group.component';
 import {ButtonGroupOption} from "./models/button-group-option";
-import {By} from "@angular/platform-browser";
-import {EventEmitter} from "@angular/core";
-import {resultMemoize} from "@ngrx/store";
 
 describe('ButtonGroupComponent', () => {
     let component: ButtonGroupComponent;

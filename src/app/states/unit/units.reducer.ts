@@ -65,14 +65,11 @@ export const unitsReducer = createReducer(
         return {...state, costFilters, filteredUnits};
     }),
     on(UnitsActions.selectUnit, (state, {unit}) => {
-        let previousUnit = undefined;
-        let nextUnit = undefined;
-        const index = state.filteredUnits.findIndex(x => x.id == unit.id);
-        if (index !== -1) {
-            previousUnit = state.filteredUnits[index - 1];
-            nextUnit = state.filteredUnits[index + 1];
-        }
-
-        return {...state, selectedUnit: unit, previousUnit, nextUnit};
+        return {
+            ...state,
+            selectedUnit: unit,
+            previousUnit: UnitService.findPreviousUnit(state.filteredUnits, unit),
+            nextUnit: UnitService.findNextUnit(state.filteredUnits, unit)
+        };
     })
 );

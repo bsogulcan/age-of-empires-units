@@ -1,8 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-
 import {RangeInputComponent} from './range-input.component';
 import {CostFilter} from "../../services/unit/dtos/cost-filter";
-import {max} from "rxjs";
 
 describe('RangeInputComponent', () => {
     let component: RangeInputComponent;
@@ -48,7 +46,7 @@ describe('RangeInputComponent', () => {
         checkbox.click();
         expect(checkbox.checked).toBeTrue();
 
-        await fixture.whenStable(); //Wait for finish render
+        await fixture.whenStable();
 
         expect(minRange.getAttribute('disabled')).toBeFalsy();
         expect(maxRange.getAttribute('disabled')).toBeFalsy();

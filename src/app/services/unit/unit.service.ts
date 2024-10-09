@@ -75,4 +75,31 @@ export class UnitService {
 
         return units;
     }
+
+    static findPreviousUnit(units: ReadonlyArray<Unit>, unit: Unit) {
+        const index = units.findIndex(x => x.id == unit.id);
+        if (index === -1) {
+            return;
+        }
+
+        if (!units[index - 1]) {
+            return;
+        }
+
+        return units[index - 1];
+    }
+
+    static findNextUnit(units: ReadonlyArray<Unit>, unit: Unit) {
+        const index = units.findIndex(x => x.id == unit.id);
+        if (index === -1) {
+            return;
+        }
+
+        if (!units[index + 1]) {
+            return;
+        }
+
+        return units[index + 1];
+    }
+
 }

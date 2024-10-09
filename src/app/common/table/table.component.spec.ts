@@ -1,5 +1,4 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-
 import {TableComponent} from './table.component';
 import {TableColumn} from "./models/table-column";
 import {By} from "@angular/platform-browser";

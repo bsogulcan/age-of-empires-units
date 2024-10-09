@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {TableColumn} from "./models/table-column";
 import {RouterLink} from "@angular/router";
 import {FormsModule} from "@angular/forms";
@@ -17,16 +17,25 @@ import {ButtonGroupComponent} from "../button-group/button-group.component";
     templateUrl: './table.component.html',
     styleUrl: './table.component.scss',
 })
-export class TableComponent implements OnInit, OnChanges {
+export class TableComponent {
     @Input({
         required: true
     })
     columns!: TableColumn[];
 
+    private _entities!: any[];
+   
     @Input({
         required: true
     })
-    entities!: any[];
+    set entities(value: any[]) {
+        this._entities = value;
+        this.initialPages();
+    }
+
+    get entities() {
+        return this._entities;
+    }
 
     @Input()
     pagination = false;
@@ -41,22 +50,13 @@ export class TableComponent implements OnInit, OnChanges {
     selectedPageIndex = 0;
     pages: number[] = [];
 
-    ngOnInit(): void {
-        this.initialPages();
-    }
-
-    // Change detection
-    ngOnChanges(changes: SimpleChanges): void {
-        this.initialPages();
-    }
-
     onDisplayCountChanged() {
         this.initialPages();
     }
 
     initialPages() {
         this.pages = [];
-        const pageCount = Math.ceil(this.entities.length / this.displayCount);
+        const pageCount = Math.ceil(this._entities.length / this.displayCount);
         for (let i = 0; i < pageCount; i++) {
             this.pages.push(i);
         }
@@ -75,7 +75,7 @@ export class TableComponent implements OnInit, OnChanges {
 
         this.selectedPageIndex = pageIndex;
         this.skip = pageIndex * this.displayCount;
-        this.rows = [...this.entities].splice(this.skip, this.displayCount);
+        this.rows = [...this._entities].splice(this.skip, this.displayCount);
     }
 
 }

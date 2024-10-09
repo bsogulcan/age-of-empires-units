@@ -47,7 +47,6 @@ export class TableComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         this.initialPages();
-        console.log(this.entities)
     }
 
     onDisplayCountChanged() {

@@ -1,13 +1,25 @@
 <div [class]="class" role="group">
-    @for (option of options; track option.value; let i = $index; let first = $first; let last = $last; ) {
-        <button
-                [ngClass]="{'border':first||last,'rounded-s-lg':first,'rounded-e-lg':last, 'border-t border-b border-l':!first&&!last, 'z-10 ring-2 ring-blue-700 text-blue-700':selectedOptionIndex===i}"
-                (click)="onButtonClicked(option)"
-                type="button"
-                class="px-4 py-2 text-sm font-medium bg-gray-800 border-gray-700 text-white hover:text-white hover:bg-gray-700 focus:ring-blue-500 focus:text-white"
-                [id]="'btn-'+i"
-        >
-            {{ option.displayName }}
-        </button>
-    }
+  @for (
+    option of options;
+    track option.value;
+    let i = $index;
+    let first = $first;
+    let last = $last
+  ) {
+    <button
+      [ngClass]="{
+        border: first || last,
+        'rounded-s-lg': first,
+        'rounded-e-lg': last,
+        'border-t border-b border-l': !first && !last,
+        'z-10 ring-2 ring-blue-700 text-blue-700': selectedOptionIndex === i,
+      }"
+      (click)="onButtonClicked(option)"
+      type="button"
+      class="px-4 py-2 text-sm font-medium bg-gray-800 border-gray-700 text-white hover:text-white hover:bg-gray-700 focus:ring-blue-500 focus:text-white"
+      [id]="'btn-' + i"
+    >
+      {{ option.displayName }}
+    </button>
+  }
 </div>

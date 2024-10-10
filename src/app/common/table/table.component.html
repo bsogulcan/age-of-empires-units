@@ -1,47 +1,53 @@
 <div class="overflow-x-auto text-white">
-    <div class="relative overflow-x-auto">
-        <table class="w-full text-sm text-left text-gray-400">
-            <thead class="text-xs uppercase bg-gray-700 text-gray-400">
-            <tr>
-                @for (column of columns; track column.name) {
-                    <th scope="col" class="px-6 py-3">{{ column.displayName }}</th>
-                }
-            </tr>
-            </thead>
-            <tbody>
-                @for (entity of rows; track entity) {
-                    <tr class="border bg-gray-800 border-gray-700 cursor-pointer hover:bg-slate-900"
-                        (click)="rowSelected.emit(entity)"
-                    >
-                        @for (column of columns; track column.name) {
-                            <td class="px-6 py-4">{{ entity[column.name] }}</td>
-                        }
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-
-    <div class="flex flex-row-reverse mt-2 gap-4">
-        <div>
-            <select (change)="onDisplayCountChanged()" [(ngModel)]="displayCount"
-                    class="block w-full p-2 bg-slate-800 border border-gray-300 shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                    id="options"
-                    name="options">
-                <option [value]="10">10</option>
-                <option [value]="25">25</option>
-                <option [value]="50">50</option>
-            </select>
-        </div>
-        <div class="content-center">
-            <button (click)="onPageSelected(selectedPageIndex-1)">Previous</button>
-            @for (page of pages; track page; let i = $index) {
-                <button [ngClass]="{'mx-2': true,'font-bold':i===selectedPageIndex}"
-                        (click)="onPageSelected(i)">{{ page + 1 }}
-                </button>
+  <div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left text-gray-400">
+      <thead class="text-xs uppercase bg-gray-700 text-gray-400">
+        <tr>
+          @for (column of columns; track column.name) {
+            <th scope="col" class="px-6 py-3">{{ column.displayName }}</th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (entity of rows; track entity) {
+          <tr
+            class="border bg-gray-800 border-gray-700 cursor-pointer hover:bg-slate-900"
+            (click)="rowSelected.emit(entity)"
+          >
+            @for (column of columns; track column.name) {
+              <td class="px-6 py-4">{{ entity[column.name] }}</td>
             }
-            <button (click)="onPageSelected(selectedPageIndex+1)">Next</button>
-        </div>
-    </div>
-</div>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 
+  <div class="flex flex-row-reverse mt-2 gap-4">
+    <div>
+      <select
+        (change)="onDisplayCountChanged()"
+        [(ngModel)]="displayCount"
+        class="block w-full p-2 bg-slate-800 border border-gray-300 shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        id="options"
+        name="options"
+      >
+        <option [value]="10">10</option>
+        <option [value]="25">25</option>
+        <option [value]="50">50</option>
+      </select>
+    </div>
+    <div class="content-center">
+      <button (click)="onPageSelected(selectedPageIndex - 1)">Previous</button>
+      @for (page of pages; track page; let i = $index) {
+        <button
+          [ngClass]="{ 'mx-2': true, 'font-bold': i === selectedPageIndex }"
+          (click)="onPageSelected(i)"
+        >
+          {{ page + 1 }}
+        </button>
+      }
+      <button (click)="onPageSelected(selectedPageIndex + 1)">Next</button>
+    </div>
+  </div>
+</div>

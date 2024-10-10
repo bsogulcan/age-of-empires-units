@@ -1,37 +1,56 @@
 <header class="bg-slate-800 p-4">
-    <div class="container mx-auto flex justify-between items-center">
-        <!-- Logo -->
-        <div class="text-white text-2xl font-bold">
-            <a routerLink="/">
-                {{ title }}
-            </a>
-        </div>
-
-        <!-- Menu -->
-        <nav>
-            <ul class="hidden md:flex space-x-8 text-white">
-                <li><a class="hover:text-blue-300" id="home-link" routerLink="/">Home</a></li>
-                <li><a class="hover:text-blue-300" id="units-link" routerLink="/unit-list">Units</a></li>
-            </ul>
-        </nav>
-
-        <!-- Mobile Menu Button -->
-        <button (click)="toggleMenu()" class="block md:hidden text-white">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                 xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 6h16M4 12h16m-7 6h7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-            </svg>
-        </button>
+  <div class="container mx-auto flex justify-between items-center">
+    <!-- Logo -->
+    <div class="text-white text-2xl font-bold">
+      <a routerLink="/">
+        {{ title }}
+      </a>
     </div>
 
-    <!-- Mobile Menu with Animation -->
-    <div
-            [ngClass]="{ 'max-h-0 opacity-0': !isMenuOpen, 'max-h-40 opacity-100': isMenuOpen }"
-            class="md:hidden overflow-hidden transition-all duration-300 ease-in-out"
-    >
-        <ul class="flex flex-col space-y-4 text-white p-4">
-            <li><a class="hover:text-blue-300" routerLink="/">Home</a></li>
-            <li><a class="hover:text-blue-300" routerLink="/unit-list">Units</a></li>
-        </ul>
-    </div>
+    <!-- Menu -->
+    <nav>
+      <ul class="hidden md:flex space-x-8 text-white">
+        <li>
+          <a class="hover:text-blue-300" id="home-link" routerLink="/">Home</a>
+        </li>
+        <li>
+          <a class="hover:text-blue-300" id="units-link" routerLink="/unit-list"
+            >Units</a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Mobile Menu Button -->
+    <button (click)="toggleMenu()" class="block md:hidden text-white">
+      <svg
+        class="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M4 6h16M4 12h16m-7 6h7"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+        ></path>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Menu with Animation -->
+  <div
+    [ngClass]="{
+      'max-h-0 opacity-0': !isMenuOpen,
+      'max-h-40 opacity-100': isMenuOpen,
+    }"
+    class="md:hidden overflow-hidden transition-all duration-300 ease-in-out"
+  >
+    <ul class="flex flex-col space-y-4 text-white p-4">
+      <li><a class="hover:text-blue-300" routerLink="/">Home</a></li>
+      <li><a class="hover:text-blue-300" routerLink="/unit-list">Units</a></li>
+    </ul>
+  </div>
 </header>

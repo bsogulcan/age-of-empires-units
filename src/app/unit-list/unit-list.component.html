@@ -1,39 +1,44 @@
 <app-wrapper>
-    <div class="mx-50 bg-slate-800 sm:rounded-lg px-6 py-8 ring-1 ring-slate-900/5 shadow-xl">
-        @if (filteredUnits) {
-            <div class="flex flex-col md:flex-row">
-                <div class="basis-1/2">
-                    <app-button-group
-                            class="inline-flex rounded-md shadow-sm mb-2"
-                            [options]="ages"
-                            [selectedOptionIndex]="selectedAgeIndex"
-                            (selectedChanged)="onAgeChanged($event)"
-                    >
-                    </app-button-group>
-                </div>
-                <div class="basis-1/2">
-                    <div class="flex flex-col">
-                        @for (costFilter of costFilters; track costFilter.type; let i = $index) {
-                            <app-range-input
-                                    [max]="200"
-                                    [costFilter]="costFilters[i]"
-                                    (costFilterChange)="onFilterChanged()"
-                            ></app-range-input>
-                        }
-                    </div>
-                </div>
-            </div>
+  <div
+    class="mx-50 bg-slate-800 sm:rounded-lg px-6 py-8 ring-1 ring-slate-900/5 shadow-xl"
+  >
+    @if (filteredUnits) {
+      <div class="flex flex-col md:flex-row">
+        <div class="basis-1/2">
+          <app-button-group
+            class="inline-flex rounded-md shadow-sm mb-2"
+            [options]="ages"
+            [selectedOptionIndex]="selectedAgeIndex"
+            (selectedChanged)="onAgeChanged($event)"
+          >
+          </app-button-group>
+        </div>
+        <div class="basis-1/2">
+          <div class="flex flex-col">
+            @for (
+              costFilter of costFilters;
+              track costFilter.type;
+              let i = $index
+            ) {
+              <app-range-input
+                [max]="200"
+                [costFilter]="costFilters[i]"
+                (costFilterChange)="onFilterChanged()"
+              ></app-range-input>
+            }
+          </div>
+        </div>
+      </div>
 
-            <app-table
-                    [columns]="columns"
-                    [entities]="filteredUnits"
-                    [pagination]="true"
-                    (rowSelected)="navigateUnitDescription($event)"
-                    [selectedPageIndex]="selectedPageIndex"
-                    (pageSelected)="pageSelected($event)"
-                    >
-            </app-table>
-        }
-    </div>
+      <app-table
+        [columns]="columns"
+        [entities]="filteredUnits"
+        [pagination]="true"
+        (rowSelected)="navigateUnitDescription($event)"
+        [selectedPageIndex]="selectedPageIndex"
+        (pageSelected)="pageSelected($event)"
+      >
+      </app-table>
+    }
+  </div>
 </app-wrapper>
-    

@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, tick } from '@angular/core/testing';
 import { RangeInputComponent } from './range-input.component';
 import { CostFilter } from '../../services/unit/dtos/cost-filter';
 import { By } from '@angular/platform-browser';
@@ -76,9 +76,13 @@ describe('RangeInputComponent', () => {
     maxInput.nativeElement.value = '140';
     maxInput.nativeElement.dispatchEvent(new Event('change'));
 
+    minInput.nativeElement.value = '160';
+    minInput.nativeElement.dispatchEvent(new Event('change'));
+
     fixture.detectChanges();
     await fixture.whenStable();
 
     expect(maxInput.nativeElement.value).toBe('150');
+    expect(minInput.nativeElement.value).toBe('150');
   });
 });

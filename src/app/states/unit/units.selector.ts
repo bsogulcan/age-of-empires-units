@@ -3,11 +3,6 @@ import { UnitState } from './units.reducer';
 
 const selectUnit = createFeatureSelector<UnitState>('units');
 
-export const selectUnits = createSelector(
-  selectUnit,
-  (state: UnitState) => state.units,
-);
-
 export const selectFilteredUnits = createSelector(
   selectUnit,
   (state: UnitState) => state.filteredUnits,

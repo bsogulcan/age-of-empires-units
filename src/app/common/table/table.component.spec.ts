@@ -46,16 +46,21 @@ describe('TableComponent', () => {
   });
 
   it('should initialize pages', () => {
+    expect(component.entities.length).toBe(entities.length);
+
     component.displayCount = 10;
-    component.initialPages();
+    component.onDisplayCountChanged();
     expect(component.pages?.length).toBe(10);
 
     component.displayCount = 25;
-    component.initialPages();
+    component.onDisplayCountChanged();
     expect(component.pages?.length).toBe(4);
 
     component.displayCount = 50;
-    component.initialPages();
+    component.onDisplayCountChanged();
+    expect(component.pages?.length).toBe(2);
+
+    component.filterPage(-1); // Should return
     expect(component.pages?.length).toBe(2);
   });
 
@@ -86,8 +91,8 @@ describe('TableComponent', () => {
     // 10 page initializing before test
     expect(component.isPageIndexExists(0)).toBe(true);
     expect(component.isPageIndexExists(9)).toBe(true);
-    console.log(component.pages);
 
+    expect(component.isPageIndexExists(-1)).toBe(false);
     expect(component.isPageIndexExists(10)).toBe(false);
   });
 

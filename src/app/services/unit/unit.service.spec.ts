@@ -1,19 +1,27 @@
 import { TestBed } from '@angular/core/testing';
 import { UnitService } from './unit.service';
 import {
+  HttpClient,
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { Unit } from './dtos/unit';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
+import { Type } from '@angular/core';
 
 describe('UnitService', () => {
   let service: UnitService;
   let archer: Unit;
   let units: Unit[];
+  let nonExistUnit;
+  let httpMock: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [provideHttpClient(withInterceptorsFromDi())],
+      imports: [HttpClientTestingModule],
     });
     archer = {
       id: 1,
@@ -133,11 +141,51 @@ describe('UnitService', () => {
         ],
       },
     ];
+
+    nonExistUnit = {
+      id: -1,
+      name: 'Elite Huskarl',
+      description: 'Upgraded Huskarl',
+      expansion: 'Age of Kings',
+      age: 'Imperial',
+      cost: {
+        Food: 52,
+        Gold: 26,
+      },
+      build_time: 16,
+      reload_time: 2,
+      movement_rate: 1.05,
+      line_of_sight: 5,
+      hit_points: 70,
+      attack: 12,
+      armor: '0/8',
+      attack_bonus: [
+        '+3 eagles',
+        '+3 buildings',
+        '+10 archers/hand cannoneers',
+      ],
+    };
     service = TestBed.inject(UnitService);
+    httpMock = TestBed.inject<HttpTestingController>(
+      HttpTestingController as Type<HttpTestingController>,
+    );
+  });
+
+  afterEach(() => {
+    httpMock.verify();
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
+  });
+
+  it('should return observable units', () => {
+    service.getList().subscribe((response) => {
+      expect(response.units).toEqual(units);
+    });
+
+    const req = httpMock.expectOne('database.json');
+    req.flush({ units: units });
   });
 
   it('should convert unit to unit dto', () => {
@@ -152,6 +200,9 @@ describe('UnitService', () => {
 
   it('should stringify costs', () => {
     let cost = UnitService.stringifyCosts({});
+    expect(cost).toBe('~');
+
+    cost = UnitService.stringifyCosts(undefined);
     expect(cost).toBe('~');
 
     cost = UnitService.stringifyCosts({ Food: 10 });
@@ -206,10 +257,26 @@ describe('UnitService', () => {
     ]);
     expect(filteredUnits.length).toBe(3);
     expect(filteredUnits).toEqual([units[0], units[1], units[2]]);
+
+    filteredUnits = UnitService.filterUnits(units, 'All', [
+      {
+        type: 'food',
+        enabled: true,
+        min: 20,
+        displayName: '',
+        max: 120,
+      },
+    ]);
+
+    expect(filteredUnits.length).toBe(1);
+    expect(filteredUnits).toEqual([units[3]]);
   });
 
   it('should find previous unit', () => {
-    let previousUnit = UnitService.findPreviousUnit([...units], units[0]);
+    let previousUnit = UnitService.findPreviousUnit([...units], nonExistUnit!);
+    expect(previousUnit).toBeFalsy();
+
+    previousUnit = UnitService.findPreviousUnit([...units], units[0]);
     expect(previousUnit).toBeFalsy();
 
     previousUnit = UnitService.findPreviousUnit([...units], units[1]);
@@ -218,7 +285,10 @@ describe('UnitService', () => {
   });
 
   it('should find next unit', () => {
-    let nextUnit = UnitService.findNextUnit([...units], units[3]);
+    let nextUnit = UnitService.findNextUnit([...units], nonExistUnit!);
+    expect(nextUnit).toBeFalsy();
+
+    nextUnit = UnitService.findNextUnit([...units], units[3]);
     expect(nextUnit).toBeFalsy();
 
     nextUnit = UnitService.findNextUnit([...units], units[0]);

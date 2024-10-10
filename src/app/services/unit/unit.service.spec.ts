@@ -1,10 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 import { UnitService } from './unit.service';
-import {
-  HttpClient,
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from '@angular/common/http';
 import { Unit } from './dtos/unit';
 import {
   HttpClientTestingModule,

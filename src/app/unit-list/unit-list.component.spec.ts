@@ -1,22 +1,25 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UnitListComponent } from './unit-list.component';
 import { HttpClientModule } from '@angular/common/http';
-import { provideMockStore } from '@ngrx/store/testing';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { UnitService } from '../services/unit/unit.service';
 import { of } from 'rxjs';
 import { Unit } from '../services/unit/dtos/unit';
-import { Store } from '@ngrx/store';
 import { UnitDto } from '../services/unit/dtos/unit-dto';
 import { Router } from '@angular/router';
+import { UnitsActions } from '../states/unit/units.actions';
+import { ButtonGroupOption } from '../common/button-group/models/button-group-option';
+import { CostFilter } from '../services/unit/dtos/cost-filter';
 
 describe('UnitListComponent', () => {
   let component: UnitListComponent;
   let fixture: ComponentFixture<UnitListComponent>;
   let unitService: jasmine.SpyObj<UnitService>;
   let units: Unit[];
-  let store: jasmine.SpyObj<Store>;
   let mockRouter: jasmine.SpyObj<Router>;
-
+  let store: MockStore;
+  const initialState = { };
+  
   beforeEach(async () => {
     units = [
       {
@@ -115,7 +118,7 @@ describe('UnitListComponent', () => {
       },
     ];
     unitService = jasmine.createSpyObj('UnitService', ['getList']);
-    store = jasmine.createSpyObj('Store', ['dispatch', 'select']);
+    // store = jasmine.createSpyObj('Store', ['dispatch', 'select']);
 
     unitService.getList.and.returnValue(
       of({
@@ -128,16 +131,14 @@ describe('UnitListComponent', () => {
       imports: [HttpClientModule, UnitListComponent],
       providers: [
         { provide: UnitService, useValue: unitService },
-        { provide: Store, useValue: store },
-        { provide: Router, useValue: mockRouter },
-        provideMockStore(),
+        provideMockStore({ initialState }),
+        { provide: Router, useValue: mockRouter }
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(UnitListComponent);
     component = fixture.componentInstance;
-    store.select.and.returnValue(of([]));
-
+    store = TestBed.inject(MockStore);
     fixture.detectChanges(); // This should trigger ngOnInit and related lifecycle hooks
   });
 
@@ -193,5 +194,36 @@ describe('UnitListComponent', () => {
 
     component.navigateUnitDescription(mockUnitDto);
     expect(mockRouter.navigate).not.toHaveBeenCalled();
+  });
+
+  it('should dispatch on age changed', () => {
+    spyOn(store, 'dispatch');
+    const selectedAge:ButtonGroupOption<number>={value:1,displayName:'Dark'};
+    component.onAgeChanged(selectedAge);
+    expect(store.dispatch).toHaveBeenCalledWith(UnitsActions.ageFilter({age:selectedAge}));
+    expect(store.dispatch).toHaveBeenCalledWith(UnitsActions.selectPageIndex({pageIndex:0}));
+  });
+
+  it('should dispatch on cost filter changed', () => {
+    spyOn(store, 'dispatch');
+    const costFilters : CostFilter[] = [{
+      enabled: true,
+      type: 'wood',
+      displayName: 'Wood',
+      min: 0,
+      max: 200
+    }]
+
+    component.costFilters=costFilters;
+
+    component.onFilterChanged();
+    expect(store.dispatch).toHaveBeenCalledWith(UnitsActions.costFilter({costFilters}));
+    expect(store.dispatch).toHaveBeenCalledWith(UnitsActions.selectPageIndex({pageIndex:0}));
+  });
+
+  it('should dispatch on selected page changed', () => {
+    spyOn(store, 'dispatch');
+    component.pageSelected(3);
+    expect(store.dispatch).toHaveBeenCalledWith(UnitsActions.selectPageIndex({pageIndex:3}));
   });
 });

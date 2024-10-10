@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RangeInputComponent } from './range-input.component';
 import { CostFilter } from '../../services/unit/dtos/cost-filter';
 import { By } from '@angular/platform-browser';

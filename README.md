@@ -17,7 +17,7 @@ Live preview: https://age-of-empires-units-coral.vercel.app
 
 https://github.com/user-attachments/assets/d72f0e4a-01ff-442c-962c-b1f8f69fec9a
 
-## Test Covarage
+## Test Coverage
 
 ```
 TOTAL: 44 SUCCESS

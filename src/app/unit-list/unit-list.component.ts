@@ -13,7 +13,7 @@ import {UnitDto} from "../services/unit/dtos/unit-dto";
 import {Store} from "@ngrx/store";
 import {Subscription} from "rxjs";
 import {UnitsActions} from "../states/unit/units.actions";
-import {selectAgeFilter, selectCostFilters, selectFilteredUnits,} from "../states/unit/units.selector";
+import {selectAgeFilter, selectCostFilters, selectFilteredUnits, selectPageIndex,} from "../states/unit/units.selector";
 import {Title} from "@angular/platform-browser";
 
 @Component({
@@ -41,6 +41,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
     filteredUnits$ = new Subscription();
     ageFilter$ = new Subscription();
     costFilters$ = new Subscription();
+    pageIndex$ = new Subscription();
 
     columns: TableColumn[] = [
         {
@@ -86,6 +87,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
     units: Unit[] = [];
     filteredUnits: UnitDto[] = [];
     selectedAgeIndex = 0;
+    selectedPageIndex = 0;
     costFilters: CostFilter[] = []
 
     ngOnInit(): void {
@@ -113,6 +115,10 @@ export class UnitListComponent implements OnInit, OnDestroy {
             this.changeDetector.markForCheck()
         });
 
+        this.pageIndex$ = this.store.select(selectPageIndex).subscribe(pageIndex=>{
+            this.selectedPageIndex=pageIndex;
+            this.changeDetector.markForCheck()
+        })
     }
 
     ngOnDestroy(): void {
@@ -120,6 +126,7 @@ export class UnitListComponent implements OnInit, OnDestroy {
         this.filteredUnits$.unsubscribe();
         this.ageFilter$.unsubscribe();
         this.costFilters$.unsubscribe();
+        this.pageIndex$.unsubscribe();
     }
 
     navigateUnitDescription(unitDto: UnitDto) {
@@ -134,9 +141,16 @@ export class UnitListComponent implements OnInit, OnDestroy {
 
     onAgeChanged(event: ButtonGroupOption<number>) {
         this.store.dispatch(UnitsActions.ageFilter({age: event}));
+        this.store.dispatch(UnitsActions.selectPageIndex({pageIndex:0}));
     }
 
     onFilterChanged() {
         this.store.dispatch(UnitsActions.costFilter({costFilters: this.costFilters}));
+        this.store.dispatch(UnitsActions.selectPageIndex({pageIndex:0}));
     }
+
+    pageSelected(pageIndex: number) {
+        this.store.dispatch(UnitsActions.selectPageIndex({pageIndex}));
+    }
+
 }

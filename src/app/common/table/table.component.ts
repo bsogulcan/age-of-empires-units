@@ -40,14 +40,28 @@ export class TableComponent {
     @Input()
     pagination = false;
 
+
+    private _selectedPageIndex = 0;
+    @Input()
+    set selectedPageIndex(pageIndex:number){
+        this._selectedPageIndex=pageIndex;
+        this.filterPage(this._selectedPageIndex);
+    }
+
+    get selectedPageIndex(){
+        return this._selectedPageIndex;
+    }
+
     @Output()
     public rowSelected = new EventEmitter<any>();
+
+    @Output()
+    pageSelected = new EventEmitter<number>();
 
     rows: any[] = [];
 
     skip = 0;
     displayCount: 10 | 25 | 50 = 10;
-    selectedPageIndex = 0;
     pages: number[] = [];
 
     onDisplayCountChanged() {
@@ -61,21 +75,38 @@ export class TableComponent {
             this.pages.push(i);
         }
 
-        this.filterPage(0);
+        this.filterPage(this.selectedPageIndex);
+    }
+ 
+    onPageSelected(pageIndex:number){
+        if(!this.isPageIndexExists(pageIndex)){
+            return;
+        }
+
+        this._selectedPageIndex = pageIndex;
+        this.pageSelected.emit(pageIndex);
+        this.filterPage(this.selectedPageIndex);
     }
 
     filterPage(pageIndex: number) {
-        if (pageIndex < 0) {
+        if(!this.isPageIndexExists(pageIndex)){
             return;
         }
-
-        if (this.pages.length > 0 && pageIndex > this.pages.length - 1) {
-            return;
-        }
-
-        this.selectedPageIndex = pageIndex;
+        
         this.skip = pageIndex * this.displayCount;
         this.rows = [...this._entities].splice(this.skip, this.displayCount);
+    }
+
+     isPageIndexExists(pageIndex:number) : boolean {
+        if (pageIndex < 0) {
+            return false;
+        }
+        
+        if (this.pages.length > 0 && pageIndex > this.pages.length - 1) {
+            return false;
+        }
+        
+        return true;
     }
 
 }

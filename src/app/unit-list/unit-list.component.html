@@ -28,7 +28,10 @@
                     [columns]="columns"
                     [entities]="filteredUnits"
                     [pagination]="true"
-                    (rowSelected)="navigateUnitDescription($event)">
+                    (rowSelected)="navigateUnitDescription($event)"
+                    [selectedPageIndex]="selectedPageIndex"
+                    (pageSelected)="pageSelected($event)"
+                    >
             </app-table>
         }
     </div>

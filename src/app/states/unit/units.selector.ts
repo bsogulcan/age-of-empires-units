@@ -37,3 +37,8 @@ export const selectNextUnit = createSelector(
     selectUnit,
     (state: UnitState) => state.nextUnit
 );
+
+export const selectPageIndex = createSelector(
+    selectUnit,
+    (state: UnitState) => state.pageIndex
+);

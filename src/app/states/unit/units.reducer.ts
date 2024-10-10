@@ -13,6 +13,7 @@ export interface UnitState {
     selectedUnit: Unit | undefined,
     previousUnit: Unit | undefined,
     nextUnit: Unit | undefined
+    pageIndex: number
 }
 
 export const initialUnitState: UnitState = {
@@ -47,7 +48,8 @@ export const initialUnitState: UnitState = {
     ],
     selectedUnit: undefined,
     previousUnit: undefined,
-    nextUnit: undefined
+    nextUnit: undefined,
+    pageIndex: 0
 };
 
 export const unitsReducer = createReducer(
@@ -71,5 +73,6 @@ export const unitsReducer = createReducer(
             previousUnit: UnitService.findPreviousUnit(state.filteredUnits, unit),
             nextUnit: UnitService.findNextUnit(state.filteredUnits, unit)
         };
-    })
+    }),
+    on(UnitsActions.selectPageIndex, (state, {pageIndex}) => ({...state, pageIndex}))
 );

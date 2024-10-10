@@ -8,7 +8,7 @@ describe('TableComponent', () => {
     let fixture: ComponentFixture<TableComponent>;
     let columns: TableColumn[];
     let entities: unknown[];
-
+    
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [TableComponent]
@@ -81,4 +81,27 @@ describe('TableComponent', () => {
         thirdRow.nativeElement.click();
     });
 
+    it('should validate page index', () => {
+        // 10 page initializing before test
+        expect(component.isPageIndexExists(0)).toBe(true);
+        expect(component.isPageIndexExists(9)).toBe(true);
+        console.log(component.pages);
+        
+        expect(component.isPageIndexExists(10)).toBe(false);
+    });
+
+    it('should emit on page index changed', () => {
+        spyOn(component.pageSelected, 'emit');
+        component.onPageSelected(1);
+        fixture.detectChanges();
+        expect(component.pageSelected.emit).toHaveBeenCalledWith(1);
+    });
+
+    it('should not emit while page not exists', () => {
+        
+        spyOn(component.pageSelected, 'emit');
+        component.onPageSelected(10);
+        fixture.detectChanges();
+        expect(component.pageSelected.emit).not.toHaveBeenCalled();
+    });
 });

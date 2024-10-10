@@ -9,6 +9,7 @@ export const UnitsActions = createActionGroup({
         'Get List': props<{ response: readonly Unit[] }>(),
         'Age Filter': props<{ age: ButtonGroupOption<number> }>(),
         'Cost Filter': props<{ costFilters: CostFilter[] }>(),
-        'Select Unit': props<{ unit: Unit }>()
+        'Select Unit': props<{ unit: Unit }>(),
+        'Select Page Index': props<{ pageIndex: number }>()
     },
 });
